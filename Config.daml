@@ -18,7 +18,7 @@
   </AddInInfo>
 
   <modules>
-    <insertModule id="MapSeriesTools_Module" className="Module1" autoLoad="false" caption="Module1">
+    <insertModule id="MapSeriesTools_Module" className="MapSeriesTools" autoLoad="false" caption="MapSeriesTools">
       <!-- uncomment to have the control hosted on a separate tab-->
       <tabs>
         <!--<tab id="MapSeriesTools_Tab1" caption="New Tab">

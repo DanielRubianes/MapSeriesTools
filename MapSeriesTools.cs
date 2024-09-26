@@ -21,14 +21,14 @@ using System.Windows.Input;
 
 namespace MapSeriesTools
 {
-    internal class Module1 : Module
+    internal class MapSeriesTools : Module
     {
-        private static Module1 _this = null;
+        private static MapSeriesTools _this = null;
 
         /// <summary>
         /// Retrieve the singleton instance to this module here
         /// </summary>
-        public static Module1 Current => _this ??= (Module1)FrameworkApplication.FindModule("MapSeriesTools_Module");
+        public static MapSeriesTools Current => _this ??= (MapSeriesTools)FrameworkApplication.FindModule("MapSeriesTools_Module");
 
         #region Overrides
         /// <summary>
