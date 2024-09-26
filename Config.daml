@@ -21,8 +21,7 @@
         <group id="MapSeriesTools_PageGroup" caption="Current Page">
           <button refID="MapSeriesTools_PrevPageButton" size="large" />
           <button refID="MapSeriesTools_NextPageButton" size="large" />
-          <button refID="esri_layouts_mapSeriesRefreshButton" size="large" />
-          <button refID="MapSeriesTools_PropertySheet1_ShowPropertySheet" size="large" />
+          <button refID="MapSeriesTools_OptionsSheet_ShowButton" size="large" />
         </group>
       </groups>
       <controls>
@@ -32,16 +31,16 @@
         <button id="MapSeriesTools_NextPageButton" caption="Next Page" className="NextPageButton" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
           <tooltip heading="Tooltip Heading">Next Map Series Page<disabledText /></tooltip>
         </button>
-        <button id="MapSeriesTools_PropertySheet1_ShowPropertySheet" caption="Show PropertySheet 1" className="PropertyPage1_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
-          <tooltip heading="Show Property Sheet">Show Property Sheet<disabledText /></tooltip>
+        <button id="MapSeriesTools_OptionsSheet_ShowButton" caption="AddIn Options" className="Options_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
+          <tooltip heading="Show Property Sheet">Show Options for Map Series Tools AddIn<disabledText /></tooltip>
         </button>
       </controls>
     </insertModule>
   </modules>
   <propertySheets>
-    <insertSheet id="MapSeriesTools_PropertySheet1" caption="PropertySheet 1" hasGroups="true">
-      <page id="MapSeriesTools_PropertyPage1" caption="PropertyPage 1" className="PropertyPage1ViewModel" group="Group 1">
-        <content className="PropertyPage1View" />
+    <insertSheet id="MapSeriesTools_OptionsSheet" caption="Map Series Tools">
+      <page id="MapSeriesTools_OptionsPage" caption="Options" className="OptionsViewModel">
+        <content className="OptionsPageView" />
       </page>
     </insertSheet>
   </propertySheets>

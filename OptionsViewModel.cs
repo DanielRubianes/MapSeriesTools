@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace MapSeriesTools
 {
-    internal class PropertyPage1ViewModel : Page
+    internal class OptionsViewModel : Page
     {
         /// <summary>
         /// Invoked when the OK or apply button on the property sheet has been clicked.
@@ -61,7 +61,7 @@ namespace MapSeriesTools
     /// <summary>
     /// Button implementation to show the property sheet.
     /// </summary>
-    internal class PropertyPage1_ShowButton : Button
+    internal class Options_ShowButton : Button
     {
         protected override void OnClick()
         {
@@ -69,7 +69,7 @@ namespace MapSeriesTools
             Object[] data = new object[] { "Page UI content" };
 
             if (!PropertySheet.IsVisible)
-                PropertySheet.ShowDialog("MapSeriesTools_PropertySheet1", "MapSeriesTools_PropertyPage1", data);
+                PropertySheet.ShowDialog("MapSeriesTools_OptionsSheet1", "MapSeriesTools_OptionsPage", data);
 
         }
     }

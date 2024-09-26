@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MapSeriesTools
 {
     /// <summary>
-    /// Interaction logic for PropertyPage1View.xaml
+    /// Interaction logic for OptionsPageView.xaml
     /// </summary>
-    public partial class PropertyPage1View : UserControl
+    public partial class OptionsPageView : UserControl
     {
-        public PropertyPage1View()
+        public OptionsPageView()
         {
             InitializeComponent();
         }
