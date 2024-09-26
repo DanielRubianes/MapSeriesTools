@@ -8,30 +8,41 @@
     <Date>9/26/2024 3:06:09 PM</Date>
     <Subject>Framework</Subject>
     <!-- Note subject can be one or more of these topics:
-                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+                        Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
   </AddInInfo>
   <modules>
     <insertModule id="MapSeriesTools_Module" className="MapSeriesTools" autoLoad="false" caption="MapSeriesTools">
-      <!-- uncomment to have the control hosted on a separate tab-->
       <tabs>
-        <!--<tab id="MapSeriesTools_Tab1" caption="New Tab">
-          <group refID="MapSeriesTools_Group1"/>
-        </tab>-->
+        <tab id="MapSeriesTools_Tab1" caption="Map Series">
+          <group refID="MapSeriesTools_PageGroup" />
+        </tab>
       </tabs>
       <groups>
-        <!-- comment this out if you have no controls on the Addin tab to avoid
-              an empty group-->
-        <group id="MapSeriesTools_Group1" caption="Test Group" appearsOnAddInTab="true">
-          <!-- host controls within groups -->
+        <group id="MapSeriesTools_PageGroup" caption="Current Page">
+          <button refID="MapSeriesTools_PrevPageButton" size="large" />
           <button refID="MapSeriesTools_NextPageButton" size="large" />
+          <button refID="esri_layouts_mapSeriesRefreshButton" size="large" />
+          <button refID="MapSeriesTools_PropertySheet1_ShowPropertySheet" size="large" />
         </group>
       </groups>
       <controls>
-        <!-- add your controls here -->
+        <button id="MapSeriesTools_PrevPageButton" caption="Prev Page" className="PrevPageButton" loadOnClick="true" smallImage="GenericButtonRed16" largeImage="GenericButtonRed32">
+          <tooltip heading="Tooltip Heading">Previous Map Series Page<disabledText /></tooltip>
+        </button>
         <button id="MapSeriesTools_NextPageButton" caption="Next Page" className="NextPageButton" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
-          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+          <tooltip heading="Tooltip Heading">Next Map Series Page<disabledText /></tooltip>
+        </button>
+        <button id="MapSeriesTools_PropertySheet1_ShowPropertySheet" caption="Show PropertySheet 1" className="PropertyPage1_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
+          <tooltip heading="Show Property Sheet">Show Property Sheet<disabledText /></tooltip>
         </button>
       </controls>
     </insertModule>
   </modules>
+  <propertySheets>
+    <insertSheet id="MapSeriesTools_PropertySheet1" caption="PropertySheet 1" hasGroups="true">
+      <page id="MapSeriesTools_PropertyPage1" caption="PropertyPage 1" className="PropertyPage1ViewModel" group="Group 1">
+        <content className="PropertyPage1View" />
+      </page>
+    </insertSheet>
+  </propertySheets>
 </ArcGIS>
