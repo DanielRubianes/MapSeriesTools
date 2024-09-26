@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MapSeriesTools")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+75a703b412354d370053985004bb17d4d7376709")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3fb466d61833177d008933d16faa7fbf7e4514fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("MapSeriesTools")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MapSeriesTools")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

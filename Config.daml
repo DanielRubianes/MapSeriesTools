@@ -11,7 +11,7 @@
                         Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
   </AddInInfo>
   <modules>
-    <insertModule id="MapSeriesTools_Module" className="MapSeriesTools" autoLoad="false" caption="MapSeriesTools">
+    <insertModule id="MapSeriesTools_Module" className="MapSeriesTools" autoLoad="true" caption="MapSeriesTools">
       <tabs>
         <tab id="MapSeriesTools_Tab1" caption="Map Series">
           <group refID="MapSeriesTools_PageGroup" />

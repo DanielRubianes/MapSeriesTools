@@ -30,7 +30,56 @@ namespace MapSeriesTools
         /// </summary>
         public static MapSeriesTools Current => _this ??= (MapSeriesTools)FrameworkApplication.FindModule("MapSeriesTools_Module");
 
+        private Dictionary<string, string> _moduleSettings = new Dictionary<string, string>();
+        internal Dictionary<string, string> Settings
+        {
+            get { return _moduleSettings; }
+            set { _moduleSettings = value; }
+        }
+
         #region Overrides
+
+        private bool hasSettings = false;
+        /// <summary>
+        /// Framework will invoke this method on our Module when the project is opened or at any time when Pro reads the project settings.
+        /// </summary>
+        protected override Task OnReadSettingsAsync(ModuleSettingsReader settings)
+        {
+            // set the flag
+            hasSettings = true;
+            // clear existing setting values
+            _moduleSettings.Clear();
+
+            if (settings == null) return Task.FromResult(0);
+
+            // Settings defined in the Property sheet’s viewmodel.	
+            string[] keys = new string[] { "ZoomToPageFlag", "SelectedMapSeries" };
+            foreach (string key in keys)
+            {
+                object value = settings.Get(key);
+                if (value != null)
+                {
+                    if (_moduleSettings.ContainsKey(key))
+                        _moduleSettings[key] = value.ToString();
+                    else
+                        _moduleSettings.Add(key, value.ToString());
+                }
+            }
+            return Task.FromResult(0);
+        }
+
+        /// <summary>
+        /// Framework calls this method on our Module any time project settings are to be saved.
+        /// </summary>
+        protected override Task OnWriteSettingsAsync(ModuleSettingsWriter settings)
+        {
+            foreach (string key in _moduleSettings.Keys)
+            {
+                settings.Add(key, _moduleSettings[key]);
+            }
+            return Task.FromResult(0);
+        }
+
         /// <summary>
         /// Called by Framework when ArcGIS Pro is closing
         /// </summary>

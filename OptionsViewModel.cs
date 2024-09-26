@@ -15,6 +15,7 @@ using ArcGIS.Desktop.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,22 +24,119 @@ namespace MapSeriesTools
     internal class OptionsViewModel : Page
     {
         /// <summary>
-        /// Invoked when the OK or apply button on the property sheet has been clicked.
+        /// Setting variables accessed by the options Page
         /// </summary>
-        /// <returns>A task that represents the work queued to execute in the ThreadPool.</returns>
-        /// <remarks>This function is only called if the page has set its IsModified flag to true.</remarks>
-        protected override Task CommitAsync()
+        private bool _zoomToPageFlag;
+        public bool ZoomToPageFlag
         {
-            return Task.FromResult(0);
+            get { return _zoomToPageFlag; }
+            set
+            {
+                if (SetProperty(ref _zoomToPageFlag, value, () => ZoomToPageFlag))
+                    //You must set "IsModified = true" to have your CommitAsync called
+                    base.IsModified = true;
+            }
+        }
+
+        private string _selectedMapSeries;
+        public string SelectedMapSeries
+        {
+            get { return _selectedMapSeries; }
+            set
+            {
+                if (SetProperty(ref _selectedMapSeries, value, () => SelectedMapSeries))
+                    //You must set "IsModified = true" to have your CommitAsync called
+                    base.IsModified = true;
+            }
+        }
+
+        private List<string> _mapSeriesList;
+        public List<string> MapSeriesList
+        {
+            get { return _mapSeriesList; }
+            set
+            {
+                if (SetProperty(ref _mapSeriesList, value, () => MapSeriesList))
+                    //You must set "IsModified = true" to have your CommitAsync called
+                    base.IsModified = true;
+            }
         }
 
         /// <summary>
         /// Called when the page loads because it has become visible.
         /// </summary>
         /// <returns>A task that represents the work queued to execute in the ThreadPool.</returns>
+        private bool _orig_zoomToPageFlag = true;
+        private string _orig_selectedMapSeries = "";
         protected override Task InitializeAsync()
         {
+            // Fetch list of layouts for combo box drop down
+            List<string> layouts = Project.Current
+                .GetItems<LayoutProjectItem>()
+                .Select(item => item.Name)
+                .ToList();
+
+            // Get project-specific settings
+            Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
+
+            // assign to the values biniding to the controls
+            if (settings.ContainsKey("ZoomToPageFlag"))
+                ZoomToPageFlag = System.Convert.ToBoolean(settings["ZoomToPageFlag"]);
+            else
+                ZoomToPageFlag = _orig_zoomToPageFlag;
+
+            if (settings.ContainsKey("SelectedMapSeries"))
+                SelectedMapSeries = settings["SelectedMapSeries"];
+            else
+                SelectedMapSeries = layouts[0];
+
+            // keep track of the original values (used for comparison when saving)
+            _orig_zoomToPageFlag = ZoomToPageFlag;
+            _orig_selectedMapSeries = SelectedMapSeries;
+
+
+            MapSeriesList = layouts;
+
             return Task.FromResult(true);
+        }
+
+        // Determines if the current settings are different from the original.
+        private bool IsDirty()
+        {
+            if (_orig_zoomToPageFlag != ZoomToPageFlag)
+                return true;
+            if (_orig_selectedMapSeries != SelectedMapSeries)
+                return true;
+            return false;
+        }
+        /// <summary>
+        /// Invoked when the OK or apply button on the property sheet has been clicked.
+        /// </summary>
+        /// <returns>A task that represents the work queued to execute in the ThreadPool.</returns>
+        /// <remarks>This function is only called if the page has set its IsModified flag to true.</remarks>
+
+
+        protected override Task CommitAsync()
+        {
+            if (IsDirty())
+            {
+                // store the new settings in the dictionary ... save happens in OnProjectSave
+                Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
+
+                if (settings.ContainsKey("ZoomToPageFlag"))
+                    settings["ZoomToPageFlag"] = ZoomToPageFlag.ToString();
+                else
+                    settings.Add("ZoomToPageFlag", ZoomToPageFlag.ToString());
+
+                if (settings.ContainsKey("SelectedMapSeries"))
+                    settings["SelectedMapSeries"] = SelectedMapSeries;
+                else
+                    settings.Add("SelectedMapSeries", SelectedMapSeries);
+
+                // set the project dirty
+                Project.Current.SetDirty(true);
+            }
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -46,15 +144,6 @@ namespace MapSeriesTools
         /// </summary>
         protected override void Uninitialize()
         {
-        }
-
-        /// <summary>
-        /// Text shown inside the page hosted by the property sheet
-        /// </summary>
-        public string DataUIContent
-        {
-            get => base.Data[0] as string;
-            set => SetProperty(ref base.Data[0], value);
         }
     }
 
@@ -65,11 +154,9 @@ namespace MapSeriesTools
     {
         protected override void OnClick()
         {
-            // collect data to be passed to the page(s) of the property sheet
-            Object[] data = new object[] { "Page UI content" };
 
             if (!PropertySheet.IsVisible)
-                PropertySheet.ShowDialog("MapSeriesTools_OptionsSheet1", "MapSeriesTools_OptionsPage", data);
+                PropertySheet.ShowDialog("MapSeriesTools_OptionsSheet", "MapSeriesTools_OptionsPage");
 
         }
     }
