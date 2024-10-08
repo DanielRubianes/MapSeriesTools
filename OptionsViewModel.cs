@@ -71,10 +71,19 @@ namespace MapSeriesTools
         protected override Task InitializeAsync()
         {
             // Fetch list of layouts for combo box drop down
-            List<string> layouts = Project.Current
-                .GetItems<LayoutProjectItem>()
+            List<LayoutProjectItem> layouts = Project.Current
+                .GetItems<LayoutProjectItem>().ToList();
+
+            // Filter layouts to only show those which have a map series
+            List<LayoutProjectItem> filtered_layouts = layouts.Where(item => item.GetLayout().MapSeries != null).ToList();
+
+            List<string> _layoutsWithMapSeries = filtered_layouts
                 .Select(item => item.Name)
                 .ToList();
+
+
+            // Store in list to filter combo box drop down
+            MapSeriesList = _layoutsWithMapSeries;
 
             // Get project-specific settings
             Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
@@ -88,14 +97,11 @@ namespace MapSeriesTools
             if (settings.ContainsKey("SelectedMapSeries"))
                 SelectedMapSeries = settings["SelectedMapSeries"];
             else
-                SelectedMapSeries = layouts[0];
+                SelectedMapSeries = _layoutsWithMapSeries[0];
 
             // keep track of the original values (used for comparison when saving)
             _orig_zoomToPageFlag = ZoomToPageFlag;
             _orig_selectedMapSeries = SelectedMapSeries;
-
-
-            MapSeriesList = layouts;
 
             return Task.FromResult(true);
         }

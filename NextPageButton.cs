@@ -15,6 +15,7 @@ using ArcGIS.Desktop.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,8 +25,11 @@ namespace MapSeriesTools
     {
         protected override async void OnClick()
         {
+            // Pull module settings
+            Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
+
             LayoutProjectItem lytItem = Project.Current.GetItems<LayoutProjectItem>()
-                         .FirstOrDefault(item => item.Name.Contains("Profile"));
+                         .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]));
 
             await QueuedTask.Run(() =>
             {
@@ -33,8 +37,19 @@ namespace MapSeriesTools
                 Layout map_series_layout = lytItem.GetLayout();
                 MapSeries MS = map_series_layout.MapSeries as MapSeries;
 
+                // DEBUG: show selected map series
+                ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Selected layout {lytItem.Name}");
+                if (MS != null)
+                {
+                    ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Layout map series: {MS}");
+                }
+                else
+                {
+                    ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Layout has to map series!");
+                }
+
                 // Set current page to next page 
-                MS.SetCurrentPageNumber(MS.NextPageNumber);
+                //MS.SetCurrentPageNumber(MS.NextPageNumber);
 
             });
         }
