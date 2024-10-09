@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace MapSeriesTools
 {
@@ -71,16 +72,21 @@ namespace MapSeriesTools
         protected override Task InitializeAsync()
         {
             // Fetch list of layouts for combo box drop down
-            List<LayoutProjectItem> layouts = Project.Current
-                .GetItems<LayoutProjectItem>().ToList();
+            //List<string> _layoutsWithMapSeries = Project.Current.GetItems<LayoutProjectItem>().ToList()
+            //    .Where(item => item.GetLayout().MapSeries != null).ToList()
+            // /\ Needs to be called on same thread; study multithreading & async
+            //    .Select(item => item.Name)
+            //    .ToList();
 
-            // Filter layouts to only show those which have a map series
-            List<LayoutProjectItem> filtered_layouts = layouts.Where(item => item.GetLayout().MapSeries != null).ToList();
+            //List<string> _layoutsWithMapSeries = new List<string>();
 
-            List<string> _layoutsWithMapSeries = filtered_layouts
+            //List<string> _layoutsWithMapSeries = new List<string>();
+
+
+            List<string>  _layoutsWithMapSeries = Project.Current
+                .GetItems<LayoutProjectItem>()
                 .Select(item => item.Name)
                 .ToList();
-
 
             // Store in list to filter combo box drop down
             MapSeriesList = _layoutsWithMapSeries;
@@ -160,7 +166,6 @@ namespace MapSeriesTools
     {
         protected override void OnClick()
         {
-
             if (!PropertySheet.IsVisible)
                 PropertySheet.ShowDialog("MapSeriesTools_OptionsSheet", "MapSeriesTools_OptionsPage");
 

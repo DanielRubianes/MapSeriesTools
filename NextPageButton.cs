@@ -28,30 +28,33 @@ namespace MapSeriesTools
             // Pull module settings
             Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
 
-            LayoutProjectItem lytItem = Project.Current.GetItems<LayoutProjectItem>()
+            // Check for selected layout
+            LayoutProjectItem lytItem;
+            if (settings.ContainsKey("SelectedMapSeries"))
+            {
+
+                lytItem = Project.Current.GetItems<LayoutProjectItem>()
                          .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]));
 
-            await QueuedTask.Run(() =>
-            {
-                // Get layout
-                Layout map_series_layout = lytItem.GetLayout();
-                MapSeries MS = map_series_layout.MapSeries as MapSeries;
-
-                // DEBUG: show selected map series
-                ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Selected layout {lytItem.Name}");
-                if (MS != null)
+                await QueuedTask.Run(() =>
                 {
-                    ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Layout map series: {MS}");
-                }
-                else
-                {
-                    ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Layout has to map series!");
-                }
+                    // Get layout
+                    Layout map_series_layout = lytItem.GetLayout();
+                    MapSeries MS = map_series_layout.MapSeries;
 
-                // Set current page to next page 
-                //MS.SetCurrentPageNumber(MS.NextPageNumber);
+                    if (MS != null)
+                    {
+                        // Set current page to next page 
+                        MS.SetCurrentPageNumber(MS.NextPageNumber);
+                    }
+                    else
+                        ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Layout has no map series set");
 
-            });
+                });
+            }
+            else
+                ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Select a layout with a map series");
+
         }
     }
 }
