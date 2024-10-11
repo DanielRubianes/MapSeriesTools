@@ -29,30 +29,11 @@ namespace MapSeriesTools
             // Pull module settings
             Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
 
-            // Check for selected layout
-            LayoutProjectItem lytItem;
             if (settings.ContainsKey("SelectedMapSeries"))
             {
                 await QueuedTask.Run(() =>
                 {
-                    // Get layout
-                    lytItem = Project.Current
-                    .GetItems<LayoutProjectItem>()
-                    .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]));
-                    Layout map_series_layout = lytItem.GetLayout();
-                    MapSeries MS = map_series_layout.MapSeries;
-
-                    if (MS != null)
-                    {
-                        // Get map frame and view from map series object
-                        MapFrame map_frame = MS.MapFrame;
-                        MapView active_map = MapView.Active;
-
-                        Camera MS_Camera = map_frame.Camera;
-                        // Zoom out a bit
-                        MS_Camera.Scale = MS_Camera.Scale * 1.5;
-                        active_map.ZoomTo(MS_Camera, TimeSpan.Zero);
-                    }
+                    MapSeriesTools.zoom_to_map_series_page();
                 });
             }
 

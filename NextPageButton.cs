@@ -33,7 +33,7 @@ namespace MapSeriesTools
 
             // Check for selected layout
             LayoutProjectItem lytItem;
-            if (settings.ContainsKey("SelectedMapSeries"))
+            if (settings.ContainsKey("SelectedMapSeries") && settings.ContainsKey("ZoomToPageFlag"))
             {
 
                 lytItem = Project.Current.GetItems<LayoutProjectItem>()
@@ -49,6 +49,9 @@ namespace MapSeriesTools
                     {
                         // Set current page to next page 
                         MS.SetCurrentPageNumber(MS.NextPageNumber);
+
+                        if (bool.Parse(settings["ZoomToPageFlag"]))
+                            MapSeriesTools.zoom_to_map_series_page();
                     }
 
                 });
