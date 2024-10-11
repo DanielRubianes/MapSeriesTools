@@ -17,11 +17,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MapSeriesTools
 {
-    internal class PrevPageButton : Button
+    internal class ZoomToPageButton : Button
     {
         protected override async void OnClick()
         {
@@ -32,25 +33,29 @@ namespace MapSeriesTools
             LayoutProjectItem lytItem;
             if (settings.ContainsKey("SelectedMapSeries"))
             {
-
-                lytItem = Project.Current.GetItems<LayoutProjectItem>()
-                         .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]));
-
                 await QueuedTask.Run(() =>
                 {
                     // Get layout
+                    lytItem = Project.Current
+                    .GetItems<LayoutProjectItem>()
+                    .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]));
                     Layout map_series_layout = lytItem.GetLayout();
                     MapSeries MS = map_series_layout.MapSeries;
 
                     if (MS != null)
                     {
-                        // Set current page to previous page 
-                        MS.SetCurrentPageNumber(MS.PreviousPageNumber);
-                    }
+                        // Get map frame and view from map series object
+                        MapFrame map_frame = MS.MapFrame;
+                        MapView active_map = MapView.Active;
 
+                        Camera MS_Camera = map_frame.Camera;
+                        // Zoom out a bit
+                        MS_Camera.Scale = MS_Camera.Scale * 1.5;
+                        active_map.ZoomTo(MS_Camera, TimeSpan.Zero);
+                    }
                 });
             }
-        
+
         }
     }
 }

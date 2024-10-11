@@ -1,6 +1,7 @@
 ﻿using ArcGIS.Core.CIM;
 using ArcGIS.Core.Data;
 using ArcGIS.Core.Geometry;
+using ArcGIS.Core.Internal.CIM;
 using ArcGIS.Desktop.Catalog;
 using ArcGIS.Desktop.Core;
 using ArcGIS.Desktop.Editing;
@@ -15,8 +16,10 @@ using ArcGIS.Desktop.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MapSeriesTools
@@ -47,13 +50,9 @@ namespace MapSeriesTools
                         // Set current page to next page 
                         MS.SetCurrentPageNumber(MS.NextPageNumber);
                     }
-                    else
-                        ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Layout has no map series set");
 
                 });
             }
-            else
-                ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Select a layout with a map series");
 
         }
     }

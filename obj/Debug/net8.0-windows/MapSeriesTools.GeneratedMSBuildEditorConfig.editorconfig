@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MapSeriesTools
-build_property.ProjectDir = C:\Users\drubianes\source\repos\DanielRubianes\MapSeriesTools\
+build_property.ProjectDir = C:\Users\drubianes\Source\Repos\DanielRubianes\MapSeriesTools\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

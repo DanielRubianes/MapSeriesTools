@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\drubianes\\source\\repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj": {}
+    "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj": {}
   },
   "projects": {
-    "C:\\Users\\drubianes\\source\\repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj": {
+    "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\drubianes\\source\\repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj",
+        "projectUniqueName": "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj",
         "projectName": "MapSeriesTools",
-        "projectPath": "C:\\Users\\drubianes\\source\\repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj",
+        "projectPath": "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj",
         "packagesPath": "C:\\Users\\drubianes\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\obj\\",
         "projectStyle": "PackageReference",

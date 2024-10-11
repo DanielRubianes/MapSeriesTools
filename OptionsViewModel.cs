@@ -82,11 +82,12 @@ namespace MapSeriesTools
 
             //List<string> _layoutsWithMapSeries = new List<string>();
 
+            List<string> _layoutsWithMapSeries = new List<string>();
 
-            List<string>  _layoutsWithMapSeries = Project.Current
-                .GetItems<LayoutProjectItem>()
-                .Select(item => item.Name)
-                .ToList();
+            _layoutsWithMapSeries = Project.Current
+            .GetItems<LayoutProjectItem>()
+            .Select(item => item.Name)
+            .ToList();
 
             // Store in list to filter combo box drop down
             MapSeriesList = _layoutsWithMapSeries;
