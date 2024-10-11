@@ -33,7 +33,15 @@ namespace MapSeriesTools
             {
                 await QueuedTask.Run(() =>
                 {
-                    MapSeriesTools.zoom_to_map_series_page();
+                    // Get map series
+                    MapSeries MS = Project.Current
+                        .GetItems<LayoutProjectItem>()
+                        .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]))
+                        .GetLayout()
+                        .MapSeries;
+
+                    if (MS != null)
+                        MapSeriesTools.Current.zoom_to_map_series_page(MS);
                 });
             }
 

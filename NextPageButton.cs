@@ -19,7 +19,6 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MapSeriesTools
@@ -31,19 +30,16 @@ namespace MapSeriesTools
             // Pull module settings
             Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
 
-            // Check for selected layout
-            LayoutProjectItem lytItem;
             if (settings.ContainsKey("SelectedMapSeries") && settings.ContainsKey("ZoomToPageFlag"))
             {
-
-                lytItem = Project.Current.GetItems<LayoutProjectItem>()
-                         .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]));
-
                 await QueuedTask.Run(() =>
                 {
-                    // Get layout
-                    Layout map_series_layout = lytItem.GetLayout();
-                    MapSeries MS = map_series_layout.MapSeries;
+                    // Get map series
+                    MapSeries MS = Project.Current
+                        .GetItems<LayoutProjectItem>()
+                        .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]))
+                        .GetLayout()
+                        .MapSeries;
 
                     if (MS != null)
                     {
@@ -51,12 +47,10 @@ namespace MapSeriesTools
                         MS.SetCurrentPageNumber(MS.NextPageNumber);
 
                         if (bool.Parse(settings["ZoomToPageFlag"]))
-                            MapSeriesTools.zoom_to_map_series_page();
+                            MapSeriesTools.Current.zoom_to_map_series_page(MS);
                     }
-
                 });
             }
-
         }
     }
 }
