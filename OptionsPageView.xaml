@@ -18,23 +18,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <CheckBox Style="{DynamicResource Esri_CheckboxToggleSwitch}" Margin="16,8,0,0" Grid.Row="0" Content="Zoom to Page" IsChecked="{Binding ZoomToPageFlag}"/>
-        
-        <!--
-        <StackPanel Grid.Row="1" Margin="16,8,0,0" Orientation="Horizontal">
-            <TextBlock Text="Selected Map Series" VerticalAlignment="Center" Style="{DynamicResource Esri_TextBlockDialog}"/>
-            <TextBox Margin="6,0,0,0" Text="{Binding SelectedMapSeries, UpdateSourceTrigger=PropertyChanged}" Width="200"
-               VerticalAlignment="Center" TextChanged="TextBox_TextChanged"/>
-        </StackPanel>
-        -->
+        <TextBlock FontWeight="Bold" Style="{DynamicResource Esri_TextBlockRegular}"  Grid.Row="0" Margin="0,16,0,0">
+            Map Series Layout:
+        </TextBlock>
+        <StackPanel Grid.Row="1" Margin="0,8,0,0" Orientation="Horizontal">
 
-        <StackPanel Grid.Row="2" Margin="16,8,0,0" Orientation="Horizontal">
-            <ComboBox Background="{DynamicResource Esri_BackgroundPressedBrush}" 
-            Foreground="{DynamicResource Esri_TextMenuBrush}" 
-            ItemsSource="{Binding MapSeriesList}"
-            SelectedItem="{Binding SelectedMapSeries, Mode=TwoWay}">
+            <ComboBox 
+                Background="{DynamicResource Esri_BackgroundPressedBrush}"
+                Foreground="{DynamicResource Esri_TextMenuBrush}"
+                ItemsSource="{Binding MapSeriesList}"
+                SelectedItem="{Binding SelectedMapSeries, Mode=TwoWay}">
             </ComboBox>
         </StackPanel>
+        <CheckBox
+            Style="{DynamicResource Esri_CheckboxToggleSwitch}"
+            Margin="0,8,0,0" Grid.Row="2"
+            Content="Zoom to Page on Switch"
+            IsChecked="{Binding ZoomToPageFlag}"
+        />
     </Grid>
 </UserControl>

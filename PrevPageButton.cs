@@ -15,6 +15,7 @@ using ArcGIS.Desktop.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,19 +25,30 @@ namespace MapSeriesTools
     {
         protected override async void OnClick()
         {
-            LayoutProjectItem lytItem = Project.Current.GetItems<LayoutProjectItem>()
-                         .FirstOrDefault(item => item.Name.Contains("Profile"));
+            // Pull module settings
+            Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
 
-            await QueuedTask.Run(() =>
+            if (settings.ContainsKey("SelectedMapSeries") && settings.ContainsKey("ZoomToPageFlag"))
             {
-                // Get layout
-                Layout map_series_layout = lytItem.GetLayout();
-                MapSeries MS = map_series_layout.MapSeries as MapSeries;
+                await QueuedTask.Run(() =>
+                {
+                    // Get map series
+                    MapSeries MS = Project.Current
+                        .GetItems<LayoutProjectItem>()
+                        .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]))
+                        .GetLayout()
+                        .MapSeries;
 
-                // Set current page to previous page 
-                MS.SetCurrentPageNumber(MS.PreviousPageNumber);
+                    if (MS != null)
+                    {
+                        // Set current page to previous page 
+                        MS.SetCurrentPageNumber(MS.PreviousPageNumber);
 
-            });
+                        if (bool.Parse(settings["ZoomToPageFlag"]))
+                            MapSeriesTools.Current.zoom_to_map_series_page(MS);
+                    }
+                });
+            }
         }
     }
 }

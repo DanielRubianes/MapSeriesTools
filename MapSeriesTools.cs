@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace MapSeriesTools
@@ -36,6 +37,19 @@ namespace MapSeriesTools
             get { return _moduleSettings; }
             set { _moduleSettings = value; }
         }
+
+        // Call these functions on the MCT Thread (QueuedTask.Run)
+        #region MCT Functions
+
+        public void zoom_to_map_series_page(MapSeries MS)
+        {
+            // Get map frame and view from map series object
+            Camera MS_Camera = MS.MapFrame.Camera;
+            MS_Camera.Scale = MS_Camera.Scale * 1.5; // Zoom out a bit
+            MapView.Active.ZoomTo(MS_Camera, TimeSpan.Zero);
+        }
+
+        #endregion MCT Functions
 
         #region Overrides
 
@@ -92,6 +106,5 @@ namespace MapSeriesTools
         }
 
         #endregion Overrides
-
     }
 }
