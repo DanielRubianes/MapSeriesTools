@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
 
@@ -68,8 +69,8 @@ namespace MapSeriesTools
             get { return _selectedLayout; }
             set
             {
-                SetProperty(ref _selectedLayout, value, () => SelectedLayout);
                 OnLayoutSelected(value);
+                SetProperty(ref _selectedLayout, value, () => SelectedLayout);
             }
         }
 
@@ -97,19 +98,20 @@ namespace MapSeriesTools
         // TODO: Detect if selected layout was actually changed
         private void OnLayoutSelected(string layoutName)
         {
-            MapSeries MS = Project.Current
-                        .GetItems<LayoutProjectItem>()
-                        .FirstOrDefault( item => item.Name.Contains(layoutName) )
-                        .GetLayout()
-                        .MapSeries;
-            if (MS == null)
-                return;
-            List<int> ms_page_numbers = Enumerable.Range(int.Parse(MS.CurrentPageNumber), int.Parse(MS.LastPageNumber)).ToList();
-            PageNumbers.Clear();
-            PageNumbers.AddRange(ms_page_numbers);
+            QueuedTask.Run(() =>
+            {
+                MapSeries MS = Project.Current
+                    .GetItems<LayoutProjectItem>()
+                    .FirstOrDefault(item => item.Name.Contains(layoutName))
+                    .GetLayout().MapSeries;
+                ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Test", MS.CurrentPageName, MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes);
+                List<int> ms_page_numbers = Enumerable.Range(int.Parse(MS.CurrentPageNumber), int.Parse(MS.LastPageNumber)).ToList();
+                PageNumbers.Clear();
+                PageNumbers.AddRange(ms_page_numbers);
 
-            CurrentPage = int.Parse(MS.CurrentPageNumber);
-            LastPage = int.Parse(MS.LastPageNumber);
+                CurrentPage = int.Parse(MS.CurrentPageNumber);
+                LastPage = int.Parse(MS.LastPageNumber);
+            });
         }
 
         private void OnProjectItemsChanged(ProjectItemsChangedEventArgs args)
@@ -144,7 +146,7 @@ namespace MapSeriesTools
             {
                 _projectLayouts = args.Project
                     .GetItems<LayoutProjectItem>()
-                    .Where(item => item.GetLayout()?.MapSeries != null)
+                    //.Where(item => item.GetLayout()?.MapSeries != null)
                     .Select(item => item.Name)
                     .ToList();
 
