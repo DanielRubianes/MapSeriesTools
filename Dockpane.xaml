@@ -22,18 +22,17 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
 
             <Button MinWidth="0" MinHeight="0" Padding="5"
-                Margin="5" Style="{DynamicResource Esri_Button}" Command="{Binding CmdImageButton}" 
-                CommandParameter="{Binding Text, ElementName=CmdParam}">
+                Margin="5" Style="{DynamicResource Esri_Button}" Command="{Binding CmdPrevPage}">
                 Previous Page
             </Button>
 
             <Button MinWidth="0" MinHeight="0" Padding="5"
-                Margin="5" Style="{DynamicResource Esri_Button}" Command="{Binding CmdImageButton}" 
-                CommandParameter="{Binding Text, ElementName=CmdParam}">
+                Margin="5" Style="{DynamicResource Esri_Button}" Command="{Binding CmdNextPage}">
                 Next Page
             </Button>
         </StackPanel>
@@ -55,11 +54,13 @@
         </StackPanel>
         <ComboBox Grid.Row="3" Margin="5" DisplayMemberPath="" IsTextSearchEnabled="True"
             ItemsSource="{Binding LayoutList}" SelectedItem="{Binding SelectedLayout}" />
-        <StackPanel Grid.Row="4" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
-            
-            <TextBox Margin="5" Text="{Binding CurrentPage}" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <TextBox Margin="5" Text="{Binding LastPage}" VerticalAlignment="Center" HorizontalAlignment="Right" />
-        </StackPanel>
+        <ComboBox Grid.Row="4" Margin="5" DisplayMemberPath="PageName" IsTextSearchEnabled="True"
+            ItemsSource="{Binding PageList}" SelectedItem="{Binding CurrentPage}" />
         <!--IsChecked="{Binding ZoomToPageFlag}"-->
+        <!-- debug group -->
+        <StackPanel Grid.Row="5" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ComboBox Grid.Row="4" Margin="5" DisplayMemberPath="PageNumber" IsTextSearchEnabled="True"
+                ItemsSource="{Binding PageList}" SelectedItem="{Binding CurrentPage}" />
+        </StackPanel>
     </Grid>
 </UserControl>

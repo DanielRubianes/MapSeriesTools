@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj": {}
+    "C:\\Users\\danda\\source\\repos\\MapSeriesTools\\MapSeriesTools.csproj": {}
   },
   "projects": {
-    "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj": {
+    "C:\\Users\\danda\\source\\repos\\MapSeriesTools\\MapSeriesTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj",
+        "projectUniqueName": "C:\\Users\\danda\\source\\repos\\MapSeriesTools\\MapSeriesTools.csproj",
         "projectName": "MapSeriesTools",
-        "projectPath": "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\MapSeriesTools.csproj",
-        "packagesPath": "C:\\Users\\drubianes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\drubianes\\Source\\Repos\\DanielRubianes\\MapSeriesTools\\obj\\",
+        "projectPath": "C:\\Users\\danda\\source\\repos\\MapSeriesTools\\MapSeriesTools.csproj",
+        "packagesPath": "C:\\Users\\danda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danda\\source\\repos\\MapSeriesTools\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\drubianes\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\danda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
