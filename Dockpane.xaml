@@ -39,9 +39,8 @@
 
         <StackPanel Grid.Row="1" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button MinWidth="0" MinHeight="0" Padding="5"
-                Margin="5" Style="{DynamicResource Esri_Button}" Command="{Binding CmdImageButton}" 
-                CommandParameter="{Binding Text, ElementName=CmdParam}">
-            Zoom to Page
+                Margin="5" Style="{DynamicResource Esri_Button}" Command="{Binding CmdZoomToPage}">
+                Zoom to Page
             </Button>
         </StackPanel>
 
@@ -50,6 +49,7 @@
                 Style="{DynamicResource Esri_CheckboxToggleSwitch}"
                 Padding="5"
                 Content="Zoom to Page on Switch"
+                IsChecked="{Binding ZoomToPageFlag}"
             />
         </StackPanel>
         <ComboBox Grid.Row="3" Margin="5" DisplayMemberPath="" IsTextSearchEnabled="True"
@@ -58,9 +58,9 @@
             ItemsSource="{Binding PageList}" SelectedItem="{Binding CurrentPage}" />
         <!--IsChecked="{Binding ZoomToPageFlag}"-->
         <!-- debug group -->
-        <StackPanel Grid.Row="5" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <!--<StackPanel Grid.Row="5" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ComboBox Grid.Row="4" Margin="5" DisplayMemberPath="PageNumber" IsTextSearchEnabled="True"
                 ItemsSource="{Binding PageList}" SelectedItem="{Binding CurrentPage}" />
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </UserControl>

@@ -30,6 +30,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
+using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
 namespace MapSeriesTools
 {
@@ -73,7 +74,17 @@ namespace MapSeriesTools
             }
         }
 
-        public class MS_Page
+        private Boolean _zoomToPageFlag = true;
+        public Boolean ZoomToPageFlag
+        {
+            get { return _zoomToPageFlag; }
+            set
+            {
+                SetProperty(ref _zoomToPageFlag, value, () => ZoomToPageFlag);
+            }
+        }
+
+public class MS_Page
         // PageNumber is an integer; matching map series implementation
         {
             public string PageName { get; set; }
@@ -103,6 +114,40 @@ namespace MapSeriesTools
         }
 
         #region Button Commands
+
+        public ICommand CmdZoomToPage
+        {
+            get
+            {
+                return new RelayCommand(async delegate
+                {
+                    ZoomToPage(SelectedLayout);
+                }, true);
+            }
+        }
+
+        //public ICommand CmdZoomToPage
+        //{
+        //    get
+        //    {
+        //        if (update == null)
+        //        {
+        //            update = new RelayCommand(
+        //                async () =>
+        //                {
+        //                    updateInProgress = true;
+        //                    CmdZoomToPage.RaiseCanExecuteChanged();
+
+        //                    await Task.Run(() => StartUpdate());
+
+        //                    updateInProgress = false;
+        //                    CmdZoomToPage.RaiseCanExecuteChanged();
+        //                },
+        //                () => !updateInProgress);
+        //        }
+        //        return update;
+        //    }
+        //}
 
         public ICommand CmdNextPage
         {
@@ -183,13 +228,13 @@ namespace MapSeriesTools
                         String page_number;
                         if (number_field == "" || number_field == null)
                         {
-                            ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"null", "Number Field");
+                            //ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"null", "Number Field");
                             page_counter.MoveNext();
                             page_number = page_counter.Current;
                         }
                         else
                         {
-                            ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"not null", "Number Field");
+                            //ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"not null", "Number Field");
                             page_number = row[number_field].ToString();
                         }
                         
@@ -217,6 +262,31 @@ namespace MapSeriesTools
                 if (MS.CurrentPageNumber == page.PageNumber)
                     return;
                 MS.SetCurrentPageNumber(page.PageNumber);
+
+                if (ZoomToPageFlag)
+                    ZoomToPage(SelectedLayout);
+            });
+        }
+
+        private async void ZoomToPage(string layout_name)
+        {
+            await QueuedTask.Run(() =>
+            {
+                //MessageBox.Show("TEST");
+                // Get map series
+                MapSeries MS = Project.Current
+                .GetItems<LayoutProjectItem>()
+                .FirstOrDefault(item => item.Name.Contains(SelectedLayout))
+                .GetLayout()
+                .MapSeries;
+
+                if (MS != null)
+                {
+                    // Get map frame and view from map series object
+                    Camera MS_Camera = MS.MapFrame.Camera;
+                    MS_Camera.Scale = MS_Camera.Scale * 1.5; // Zoom out a bit
+                    MapView.Active.ZoomTo(MS_Camera, TimeSpan.Zero);
+                }
             });
         }
 
