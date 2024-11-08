@@ -13,44 +13,49 @@
   <modules>
     <insertModule id="MapSeriesTools_Module" className="MapSeriesTools" autoLoad="true" caption="MapSeriesTools">
       <tabs>
-        <tab id="MapSeriesTools_Tab1" caption="Map Series">
-		  <group refID="MapSeriesTools_MscGroup" />
+        <tab id="MapSeriesTools_Tab1" caption="Map Series Page">
+          <group refID="MapSeriesTools_MscGroup" />
           <group refID="MapSeriesTools_SwitchPageGroup" />
         </tab>
       </tabs>
       <groups>
         <group id="MapSeriesTools_SwitchPageGroup" caption="Current Page">
-          <button refID="MapSeriesTools_PrevPageButton" size="large" />
-          <button refID="MapSeriesTools_NextPageButton" size="large" />
+			<button refID="MapSeriesTools_GoToPageButton" size="large" />
+            <button refID="MapSeriesTools_PrevPageButton" size="large" />
+            <button refID="MapSeriesTools_PrevPageButton" size="large" />
+            <button refID="MapSeriesTools_NextPageButton" size="large" />
         </group>
-		<group id="MapSeriesTools_MscGroup" caption="Options">
-          <button refID="MapSeriesTools_ZoomToPageButton" size="large" />
-          <button refID="MapSeriesTools_OptionsSheet_ShowButton" size="large" />
-          <button refID="MapSeriesTools_Dockpane_ShowButton" size="large" />
-		</group>
+        <group id="MapSeriesTools_MscGroup" caption="Options">
+            <button refID="MapSeriesTools_ZoomToPageButton" size="large" />
+            <button refID="MapSeriesTools_OptionsSheet_ShowButton" size="large" />
+            <!--<button refID="MapSeriesTools_Dockpane_ShowButton" size="large" />-->
+        </group>
       </groups>
       <controls>
-        <button id="MapSeriesTools_PrevPageButton" caption="Prev Page" className="PrevPageButton" loadOnClick="true" smallImage="GenericButtonRed16" largeImage="GenericButtonRed32">
-          <tooltip heading="Previous Page">Previous Map Series Page<disabledText /></tooltip>
+        <button id="MapSeriesTools_PrevPageButton" caption="Prev Page" className="PrevPageButton" loadOnClick="true" smallImage="GenericBlueLeftArrowLongTail16" largeImage="GenericBlueLeftArrowLongTail32">
+            <tooltip heading="Previous Page">Previous Map Series Page<disabledText /></tooltip>
         </button>
-        <button id="MapSeriesTools_NextPageButton" caption="Next Page" className="NextPageButton" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
-          <tooltip heading="Next Page">Next Map Series Page<disabledText /></tooltip>
+        <button id="MapSeriesTools_NextPageButton" caption="Next Page" className="NextPageButton" loadOnClick="true" smallImage="GenericBlueRightArrowLongTail16" largeImage="GenericBlueRightArrowLongTail32">
+            <tooltip heading="Next Page">Next Map Series Page<disabledText /></tooltip>
         </button>
-        <button id="MapSeriesTools_ZoomToPageButton" caption="Zoom To Page" className="ZoomToPageButton" loadOnClick="true" smallImage="GenericButtonYellow16" largeImage="GenericButtonYellow32">
-          <tooltip heading="Zoom To Page">Zoom to Selected Map Series Page<disabledText /></tooltip>
-        </button>
-        <button id="MapSeriesTools_OptionsSheet_ShowButton" caption="AddIn Options" className="Options_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
-          <tooltip heading="Show Property Sheet">Show Options for Map Series Tools AddIn<disabledText /></tooltip>
-        </button>
-        <button id="MapSeriesTools_Dockpane_ShowButton" caption="Dock Pane" className="Dockpane_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
+		<button id="MapSeriesTools_GoToPageButton" caption="Go To Page" className="GoToPageButton" loadOnClick="true" smallImage="launch16" largeImage="launch32">
+			<tooltip heading="Go To Page">Select Map Series Page<disabledText /></tooltip>
+		</button>
+		<button id="MapSeriesTools_ZoomToPageButton" caption="Zoom To Page" className="ZoomToPageButton" loadOnClick="true" smallImage="ZoomGeneric16" largeImage="ZoomGeneric32">
+		    <tooltip heading="Zoom To Page">Zoom to Selected Map Series Page<disabledText /></tooltip>
+		</button>
+        <button id="MapSeriesTools_OptionsSheet_ShowButton" caption="AddIn Options" className="Options_ShowButton" loadOnClick="true" smallImage="PopupSettings16" largeImage="PopupSettings32">
+            <tooltip heading="Show Property Sheet">Show Options for Map Series Tools AddIn<disabledText /></tooltip>
+        <!--<button id="MapSeriesTools_Dockpane_ShowButton" caption="Dock Pane" className="Dockpane_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
           <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
+        </button>-->
         </button>
       </controls>
-      <dockPanes>
+      <!--<dockPanes>
         <dockPane id="MapSeriesTools_Dockpane" caption="Map Series" className="DockpaneViewModel" dock="group" dockWith="esri_core_projectDockPane">
           <content className="DockpaneView" />
         </dockPane>
-      </dockPanes>
+      </dockPanes>-->
     </insertModule>
   </modules>
   <propertySheets>

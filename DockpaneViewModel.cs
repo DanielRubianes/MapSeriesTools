@@ -84,7 +84,7 @@ namespace MapSeriesTools
             }
         }
 
-public class MS_Page
+        public class MS_Page
         // PageNumber is an integer; matching map series implementation
         {
             public string PageName { get; set; }
@@ -119,7 +119,7 @@ public class MS_Page
         {
             get
             {
-                return new RelayCommand(async delegate
+                return new RelayCommand(() =>
                 {
                     ZoomToPage(SelectedLayout);
                 }, true);
