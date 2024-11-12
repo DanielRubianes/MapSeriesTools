@@ -28,12 +28,14 @@ using ArcGIS.Desktop.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using static MapSeriesTools.DockpaneViewModel;
 
@@ -45,6 +47,7 @@ namespace MapSeriesTools
 
         private object _lock = new();
         private ObservableCollection<MS_Page> _pageList = new();
+        private Boolean _pagesNeeded = true;
 
         public PageDialogViewModel(PageDialog view)
         {
@@ -65,17 +68,17 @@ namespace MapSeriesTools
             }
         }
 
-        private async void get_pages()
+        private List<MS_Page> get_pages()
         {
             // Pull module settings
             Dictionary<string, string> settings = MapSeriesTools.Current.Settings;
 
             if ( !settings.ContainsKey("SelectedMapSeries") || !settings.ContainsKey("ZoomToPageFlag") )
             {
-                return;
+                return new List<MS_Page>();
             }
-            var page_list = new ObservableCollection<MS_Page>();
-            await QueuedTask.Run(() =>
+            var page_list = new List<MS_Page>();
+            Task page_find = QueuedTask.Run(() =>
             {
                 MapSeries MS = Project.Current.GetItems<LayoutProjectItem>()
                     .FirstOrDefault(item => item.Name.Contains(settings["SelectedMapSeries"]))
@@ -121,26 +124,30 @@ namespace MapSeriesTools
                     }
                 }
             });
-            PageList.Clear();
-            PageList.AddRange(page_list);
+            page_find.Wait();
+            return page_list;
         }
 
         public ObservableCollection<MS_Page> PageList
         {
             get
             {
-                if (_pageList.IsNullOrEmpty())
-                    get_pages();
+                if (_pagesNeeded)
+                {
+                    _pageList.Clear();
+                    _pageList.AddRange(get_pages());
+                    _pagesNeeded = false;
+                }
                 return _pageList;
             }
         }
 
         private MS_Page _selectedPage;
-        public MS_Page SelectedPage;
-        //{
-        //    get { return _selectedPage; }
-        //    set { SetProperty(ref _selectedPage, value, () => SelectedPage); }
-        //}
+        public MS_Page SelectedPage
+        {
+            get { return _selectedPage; }
+            set { SetProperty(ref _selectedPage, value, () => SelectedPage); }
+        }
 
         // TODO: Convert to ICommand
         public ICommand CmdOk => new RelayCommand(async () =>
@@ -169,11 +176,12 @@ namespace MapSeriesTools
                     }
                 });
             }
+            _view.DialogResult = true;
+            _view.Close();
         });
 
         public ICommand CmdCancel => new RelayCommand(() =>
         {
-            MessageBox.Show($@"Cancel was clicked => closing ProWindow");
             _view.DialogResult = false;
             _view.Close();
         });
