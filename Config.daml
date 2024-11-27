@@ -28,7 +28,6 @@
         <group id="MapSeriesTools_MscGroup" caption="Options">
             <button refID="MapSeriesTools_ZoomToPageButton" size="large" />
             <button refID="MapSeriesTools_OptionsSheet_ShowButton" size="large" />
-            <!--<button refID="MapSeriesTools_Dockpane_ShowButton" size="large" />-->
         </group>
       </groups>
       <controls>
@@ -45,17 +44,8 @@
 		    <tooltip heading="Zoom To Page">Zoom to Selected Map Series Page<disabledText /></tooltip>
 		</button>
         <button id="MapSeriesTools_OptionsSheet_ShowButton" caption="AddIn Options" className="Options_ShowButton" loadOnClick="true" smallImage="PopupSettings16" largeImage="PopupSettings32">
-            <tooltip heading="Show Property Sheet">Show Options for Map Series Tools AddIn<disabledText /></tooltip>
-        <!--<button id="MapSeriesTools_Dockpane_ShowButton" caption="Dock Pane" className="Dockpane_ShowButton" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
-          <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
-        </button>-->
         </button>
       </controls>
-      <!--<dockPanes>
-        <dockPane id="MapSeriesTools_Dockpane" caption="Map Series" className="DockpaneViewModel" dock="group" dockWith="esri_core_projectDockPane">
-          <content className="DockpaneView" />
-        </dockPane>
-      </dockPanes>-->
     </insertModule>
   </modules>
   <propertySheets>

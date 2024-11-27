@@ -39,12 +39,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="5">Select Page Name/Number:</TextBlock>
         <ComboBox Grid.Row="1" Margin="5" DisplayMemberPath="PageName" IsTextSearchEnabled="True"
         ItemsSource="{Binding PageList}" SelectedItem="{Binding SelectedPage}"/>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Style="{DynamicResource Esri_Button}"
                 MaxWidth="90" 
                 MaxHeight="25" Command="{Binding CmdOk}">Ok</Button>

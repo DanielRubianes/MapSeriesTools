@@ -37,7 +37,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using static MapSeriesTools.DockpaneViewModel;
 
 namespace MapSeriesTools
 {
@@ -64,7 +63,7 @@ namespace MapSeriesTools
             public MS_Page(string page_name, string page_number)
             {
                 PageName = page_name;
-                PageNumber = page_number;
+                PageNumber = page_number; 
             }
         }
 
