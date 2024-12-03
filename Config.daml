@@ -1,7 +1,7 @@
 ﻿<ArcGIS defaultAssembly="MapSeriesTools.dll" defaultNamespace="MapSeriesTools" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
   <AddInInfo id="{449fc0a3-1b77-4aee-afa5-4155cc2edb2e}" version="1.0" desktopVersion="3.3.52636" product="ArcGISPro">
     <Name>MapSeriesTools</Name>
-    <Description>MapSeriesTools description</Description>
+    <Description>Adds a Map Series Page ribbon tab; allows the user to cycle through map series pages and zoom to active page from the map view.</Description>
     <Image>Images\AddinDesktop32.png</Image>
     <Author>Danda9478</Author>
     <Company>Acme</Company>
@@ -13,7 +13,7 @@
   <modules>
     <insertModule id="MapSeriesTools_Module" className="MapSeriesTools" autoLoad="true" caption="MapSeriesTools">
       <tabs>
-        <tab id="MapSeriesTools_Tab1" caption="Map Series Page">
+        <tab id="MapSeriesTools_Tab1" caption="Map Series Page" condition="esri_mapping_pane_core">
           <group refID="MapSeriesTools_MscGroup" />
           <group refID="MapSeriesTools_SwitchPageGroup" />
         </tab>
