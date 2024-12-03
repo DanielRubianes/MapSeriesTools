@@ -30,7 +30,7 @@ namespace MapSeriesTools
 
             if (settings.ContainsKey("SelectedMapSeries") && settings.ContainsKey("ZoomToPageFlag"))
             {
-                await QueuedTask.Run(() =>
+                await QueuedTask.Run(async () =>
                 {
                     // Get map series
                     MapSeries MS = Project.Current

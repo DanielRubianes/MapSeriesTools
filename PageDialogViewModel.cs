@@ -141,7 +141,7 @@ namespace MapSeriesTools
             }
         }
 
-        private MS_Page _selectedPage;
+        private MS_Page _selectedPage = null;
         public MS_Page SelectedPage
         {
             get { return _selectedPage; }
@@ -165,7 +165,7 @@ namespace MapSeriesTools
                         .GetLayout()
                         .MapSeries;
 
-                    if (MS != null)
+                    if (MS != null && SelectedPage != null)
                     {
                         // Set current page to next page 
                         MS.SetCurrentPageNumber(SelectedPage.PageNumber);
