@@ -3,7 +3,7 @@
     <Name>MapSeriesTools</Name>
     <Description>Adds a Map Series Page ribbon tab; allows the user to cycle through map series pages and zoom to active page from the map view.</Description>
     <Image>Images\AddinDesktop32.png</Image>
-    <Author>Danda9478</Author>
+    <Author>Daniel Rubianes</Author>
     <Company>Acme</Company>
     <Date>9/26/2024 3:06:09 PM</Date>
     <Subject>Framework</Subject>
